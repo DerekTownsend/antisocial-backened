@@ -13,11 +13,11 @@ class PostSerializer < ActiveModel::Serializer
       {
         include:{
           user: {only: %i[ username id ]},
-          user_favorites:{only: %i[ id ]},
-          user_likes:{only: %i[ id ]},
-          user_dislikes:{only: %i[ id ]},
+          post_favorites:{except: %i[ created_at updated_at]},
+          post_likes:{except: %i[ created_at updated_at]},
+          post_dislikes:{except: %i[ created_at updated_at]},
         },
-        except: %i[user_id]
+        except: %i[post_id]
       }
       # final_rating = @post.collect do |rest|
       #    rest.get_rating()
@@ -29,15 +29,16 @@ class PostSerializer < ActiveModel::Serializer
       {
          include:
          {
-           user_favorites:{only: %i[ id ]},
-           user_likes:{only: %i[ id ]},
-           user_dislikes:{only: %i[ id ]},
+           user: {only: %i[ username id ]},
+           post_favorites:{except: %i[ created_at updated_at]},
+           post_likes:{except: %i[ created_at updated_at]},
+           post_dislikes:{except: %i[ created_at updated_at]},
            comments:{
              include:{
              user: {only: %i[ username id ]},
-             user_favorites:{only: %i[ id ]},
-             user_likes:{only: %i[ id ]},
-             user_dislikes:{only: %i[ id ]},
+             comment_favorites:{except: %i[ created_at updated_at]},
+             comment_likes:{except: %i[ created_at updated_at]},
+             comment_dislikes:{except: %i[ created_at updated_at]},
              }}
           }
       }

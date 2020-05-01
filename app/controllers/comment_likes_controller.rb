@@ -1,7 +1,7 @@
 class CommentLikesController < ApplicationController
   def create
-    comment = Comment.find_by(id: params[:comment_id])
-    comment_dislike_exists = comment.comment_dislikes.find_by(user_id: params[:user_id])
+    comment = Comment.find_by(id: comment_like_params[:comment_id])
+    comment_dislike_exists = comment.comment_dislikes.find_by(user_id: comment_like_params[:user_id])
     if comment_dislike_exists
       comment_dislike_exists.destroy
     end

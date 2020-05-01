@@ -1,7 +1,7 @@
 class PostDislikesController < ApplicationController
   def create
-    post = Post.find_by(id: params[:post_id])
-    post_like_exists = post.post_likes.find_by(user_id: params[:user_id])
+    post = Post.find_by(id: post_dislike_params[:post_id])
+    post_like_exists = post.post_likes.find_by(user_id: post_dislike_params[:user_id])
     if post_like_exists
       post_like_exists.destroy
     end

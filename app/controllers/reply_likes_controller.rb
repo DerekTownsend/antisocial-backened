@@ -1,7 +1,7 @@
 class ReplyLikesController < ApplicationController
   def create
-    reply = Reply.find_by(id: params[:reply_id])
-    reply_dislike_exists = reply.reply_dislikes.find_by(user_id: params[:user_id])
+    reply = Reply.find_by(id: reply_like_params[:reply_id])
+    reply_dislike_exists = reply.reply_dislikes.find_by(user_id: reply_like_params[:user_id])
     if reply_dislike_exists
       reply_dislike_exists.destroy
     end

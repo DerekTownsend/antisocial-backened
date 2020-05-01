@@ -15,10 +15,10 @@ class CommentSerializer < ActiveModel::Serializer
         include:
         {
           user:{only: %i[ id username ]},
-          user_favorites:{only: %i[ id ]},
-          user_likes:{only: %i[ id ]},
-          user_dislikes:{only: %i[ id ]},
-        },except: %i[ user_id ]
+          comment_favorites:{except: %i[ created_at updated_at]},
+          comment_likes:{except: %i[ created_at updated_at]},
+          comment_dislikes:{except: %i[ created_at updated_at]},
+        },except: %i[ comment_id ]
       }
       if @comment.class != Array
         # puts "+++++|+++++++++++++++++++++++++++++++"
@@ -29,16 +29,16 @@ class CommentSerializer < ActiveModel::Serializer
           include:
           {
             user:{only: %i[ id username ]},
-            user_favorites:{only: %i[ id ]},
-            user_likes:{only: %i[ id ]},
-            user_dislikes:{only: %i[ id ]},
+            comment_favorites:{except: %i[ created_at updated_at]},
+            comment_likes:{except: %i[ created_at updated_at]},
+            comment_dislikes:{except: %i[ created_at updated_at]},
             replies:{
               include:{
-                user_favorites:{only: %i[ id ]},
-                user_likes:{only: %i[ id ]},
-                user_dislikes:{only: %i[ id ]},
+                reply_favorites:{except: %i[ created_at updated_at]},
+                reply_likes:{except: %i[ created_at updated_at]},
+                reply_dislikes:{except: %i[ created_at updated_at]},
                 }}
-          },except: %i[ user_id ]
+          },except: %i[ comment_id ]
         }
       end
 
