@@ -1,11 +1,11 @@
 class CommentSerializer < ActiveModel::Serializer
-  attributes :id, :title, :content
+  attributes :id, :content
   has_one :user
-  has_one :restaurant
+  has_one :post
 
-  def initialize(comment_object, comments_max=nil)
+  def initialize(comment_object, replies_max=nil)
     @comment = comment_object
-    @comments_max = comments_max
+    @replies_max = replies_max
   end
 
     def to_serialized_json
@@ -14,12 +14,36 @@ class CommentSerializer < ActiveModel::Serializer
       {
         include:
         {
-          restaurant:{except: %i[ created_at updated_at ]},
           user:{only: %i[ id username ]},
-        }
+          user_favorites:{only: %i[ id ]},
+          user_likes:{only: %i[ id ]},
+          user_dislikes:{only: %i[ id ]},
+        },except: %i[ user_id ]
       }
-      if @comments_max
-        {comments: @comment, total: @comments_max}.to_json(obj)
+      if @comment.class != Array
+        # puts "+++++|+++++++++++++++++++++++++++++++"
+        # puts "here"
+        # puts "+++++|+++++++++++++++++++++++++++++++"
+        obj =
+        {
+          include:
+          {
+            user:{only: %i[ id username ]},
+            user_favorites:{only: %i[ id ]},
+            user_likes:{only: %i[ id ]},
+            user_dislikes:{only: %i[ id ]},
+            replies:{
+              include:{
+                user_favorites:{only: %i[ id ]},
+                user_likes:{only: %i[ id ]},
+                user_dislikes:{only: %i[ id ]},
+                }}
+          },except: %i[ user_id ]
+        }
+      end
+
+      if @replies_max
+        {comments: @comment, total: @replies_max}.to_json(obj)
       else
         @comment.to_json(obj)
       end

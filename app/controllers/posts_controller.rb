@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  skip_before_action :authorized, only: [:index, :trending, :show]
+  skip_before_action :authorized, only: [:index, :trending, :show, :search]
 
   def index
     page = params["page"]
@@ -31,7 +31,7 @@ class PostsController < ApplicationController
 
     posts = Post.all.sort_by{ |post| post.rating}.reverse
 
-    render json: {posts: posts}
+    render json: PostSerializer.new(posts).to_serialized_json
   end
 
   def create

@@ -12,7 +12,10 @@ class PostSerializer < ActiveModel::Serializer
       obj =
       {
         include:{
-          user: {only: %i[ username id ]}
+          user: {only: %i[ username id ]},
+          user_favorites:{only: %i[ id ]},
+          user_likes:{only: %i[ id ]},
+          user_dislikes:{only: %i[ id ]},
         },
         except: %i[user_id]
       }
@@ -26,9 +29,15 @@ class PostSerializer < ActiveModel::Serializer
       {
          include:
          {
+           user_favorites:{only: %i[ id ]},
+           user_likes:{only: %i[ id ]},
+           user_dislikes:{only: %i[ id ]},
            comments:{
              include:{
-             user: {only: %i[ username id ]}
+             user: {only: %i[ username id ]},
+             user_favorites:{only: %i[ id ]},
+             user_likes:{only: %i[ id ]},
+             user_dislikes:{only: %i[ id ]},
              }}
           }
       }

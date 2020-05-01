@@ -9,11 +9,7 @@ class UserSerializer < ActiveModel::Serializer
     def to_serialized_json
       obj =
       {
-        include:
-        {
-          favorites:{},
-          restaurant_favorites:{except: %i[ created_at updated_at bio]},
-          },except: %i[updated_at]
+        include:{},except: %i[updated_at]
       }
       if @jwt
         {user: @user, jwt: @jwt}.to_json(obj)

@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-  resources :ratings
-  resources :replies
+  # resources :ratings, only: [:create, :destroy]
+
+  resources :posts
   resources :comments
+  resources :replies
   post '/search', to: 'posts#search'
   get '/trending', to: 'posts#trending'
-  resources :posts
 
   namespace :api do
       namespace :v1 do
@@ -17,4 +18,14 @@ Rails.application.routes.draw do
 
       end
     end
+
+    resources :post_likes, only: [:create, :destroy]
+    resources :post_favorites, only: [:create, :destroy]
+    resources :post_dislikes, only: [:create, :destroy]
+    resources :comment_likes, only: [:create, :destroy]
+    resources :comment_favorites, only: [:create, :destroy]
+    resources :comment_dislikes, only: [:create, :destroy]
+    resources :reply_likes, only: [:create, :destroy]
+    resources :reply_favorites, only: [:create, :destroy]
+    resources :reply_dislikes, only: [:create, :destroy]
 end
