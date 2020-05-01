@@ -10,4 +10,8 @@ class Comment < ApplicationRecord
   has_many :user_favorites, through: :comment_favorites, source: :user
   has_many :user_likes, through: :comment_likes, source: :user
   has_many :user_dislikes, through: :comment_dislikes, source: :user
+
+  def rating
+     self.comment_likes.count - self.comment_dislikes.count
+  end
 end

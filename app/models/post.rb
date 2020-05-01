@@ -10,4 +10,7 @@ class Post < ApplicationRecord
   has_many :user_likes, through: :post_likes, source: :user
   has_many :user_dislikes, through: :post_dislikes, source: :user
 
+  def rating
+     self.post_likes.count - self.post_dislikes.count
+  end
 end
