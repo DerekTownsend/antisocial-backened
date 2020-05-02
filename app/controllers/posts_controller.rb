@@ -42,6 +42,9 @@ class PostsController < ApplicationController
   def update
     post = Post.find_by(id: params[:id])
     post.update_attributes(post_params)
+    puts"====================================="
+    puts post
+    puts"====================================="
     render json: PostSerializer.new(post).to_serialized_json
   end
 

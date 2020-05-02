@@ -1,6 +1,6 @@
 class Reply < ApplicationRecord
   belongs_to :user
-  belongs_to :comment
+  belongs_to :comment, dependent: :destroy
 
   has_many :reply_favorites, dependent: :destroy
   has_many :reply_likes, dependent: :destroy

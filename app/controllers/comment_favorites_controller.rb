@@ -1,6 +1,6 @@
 class CommentFavoritesController < ApplicationController
   def create
-    favorite = CommentFavorite.create(favorite_params)
+    favorite = CommentFavorite.create(comment_favorite_params)
     render json: CommentSerializer.new(favorite.comment).to_serialized_json
   end
 
@@ -12,8 +12,8 @@ class CommentFavoritesController < ApplicationController
   end
 
   private
-  def favorite_params
-    params.require(:favorite).permit(:user_id, :comment_id)
+  def comment_favorite_params
+    params.require(:comment_favorite).permit(:user_id, :comment_id)
   end
 
 end
