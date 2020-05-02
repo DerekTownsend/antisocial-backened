@@ -1,4 +1,4 @@
-class CommentDislikesController < ApplicationController
+class ReplyDislikesController < ApplicationController
   def create
     comment = Comment.find_by(id: comment_dislike_params[:comment_id])
     comment_like_exists = comment.comment_likes.find_by(user_id: comment_dislike_params[:user_id])
