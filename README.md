@@ -2,6 +2,7 @@ This project serves as the backend API for my frontend antisocial app.
 
 To run this project:
   You must first have the postgres app and bundler
+ # bundle install
  # rails db:create
  # rails db:migrate
  # rails db:seed
